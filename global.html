@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Meshari Global Control</title>
+<style>
+body {
+  background:#111; color:white; text-align:center;
+  font-family:Arial; padding:40px;
+}
+.slider { width:80%; height:30px; }
+button { padding:15px; width:200px; margin:10px; font-size:20px; }
+</style>
+</head>
+<body>
+
+<h1>🌍 Meshari Global Controller</h1>
+
+<h3>Left / Right</h3>
+<input id="lx" type="range" min="-1" max="1" step="0.01" class="slider">
+
+<h3>Up / Down</h3>
+<input id="ly" type="range" min="-1" max="1" step="0.01" class="slider">
+
+<br><br>
+
+<button onclick="sendFinger(1)">🖐 Close Fingers</button>
+<button onclick="sendFinger(0)">✋ Open Fingers</button>
+
+<script>
+let server = "https://pencil-faster-patents-keyword.trycloudflare.com/set";
+
+let finger_state = 0;
+
+function sendFinger(f) { finger_state = f; }
+
+function send() {
+    let lx = document.getElementById("lx").value;
+    let ly = document.getElementById("ly").value;
+
+    fetch(`${server}?lx=${lx}&ly=${ly}&fingers=${finger_state}`)
+      .catch(()=>{});
+}
+
+setInterval(send, 80); // 12 FPS safe
+</script>
+</body>
+</html>
+
