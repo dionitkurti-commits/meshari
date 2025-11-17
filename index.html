@@ -11,27 +11,28 @@ body {
   font-family:Arial; 
   padding:40px;
 }
-.slider { 
-  width:80%; 
-  height:30px; 
-}
-button { 
-  padding:15px; 
-  width:200px; 
-  margin:10px; 
-  font-size:20px; 
-}
+.slider { width:80%; height:30px; }
+button { padding:15px; width:200px; margin:10px; font-size:20px; }
+.section-title { margin-top:40px; font-size:22px; }
 </style>
 </head>
 <body>
 
 <h1>🌍 Meshari Global Controller</h1>
 
-<h3>Left / Right</h3>
-<input id="lx" type="range" min="0" max="1" step="0.01" value="0" class="slider">
+<div class="section-title">Joint Controls</div>
 
-<h3>Up / Down</h3>
-<input id="ly" type="range" min="0" max="1" step="0.01" value="0" class="slider">
+<h3>Brryli</h3>
+<input id="brryli" type="range" min="0" max="1" step="0.01" value="0" class="slider">
+
+<h3>Krahu</h3>
+<input id="krahu" type="range" min="0" max="1" step="0.01" value="0" class="slider">
+
+<h3>Mbajtesi</h3>
+<input id="mbajtesi" type="range" min="0" max="1" step="0.01" value="0" class="slider">
+
+<h3>Biceps</h3>
+<input id="biceps" type="range" min="0" max="1" step="0.01" value="0" class="slider">
 
 <br><br>
 
@@ -44,23 +45,26 @@ let server = "https://compilation-merit-essay-necessarily.trycloudflare.com/set"
 let finger_state = 0;
 let lastSend = 0;
 
-function sendFinger(f) { 
-    finger_state = f; 
+function sendFinger(f) {
+    finger_state = f;
 }
 
 function send() {
     const now = Date.now();
-    if (now - lastSend < 70) return;  // keep safe interval
+    if (now - lastSend < 70) return;
     lastSend = now;
 
-    const lx = document.getElementById("lx").value;
-    const ly = document.getElementById("ly").value;
+    let brryli   = document.getElementById("brryli").value;
+    let krahu    = document.getElementById("krahu").value;
+    let mbajtesi = document.getElementById("mbajtesi").value;
+    let biceps   = document.getElementById("biceps").value;
 
-    fetch(`${server}?lx=${lx}&ly=${ly}&fingers=${finger_state}`)
+    fetch(`${server}?brryli=${brryli}&krahu=${krahu}&mbajtesi=${mbajtesi}&biceps=${biceps}&fingers=${finger_state}`)
       .catch(()=>{});
 }
 
-setInterval(send, 80); 
+setInterval(send, 80);
 </script>
+
 </body>
 </html>
